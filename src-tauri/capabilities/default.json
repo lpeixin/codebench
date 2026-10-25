@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capability for the local-leet main window. Only the core IPC surface is exposed: the app has no plugins and makes no outbound HTTP requests from the webview.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

@@ -1,0 +1,31 @@
+[package]
+name = "local-leet"
+version = "0.1.0"
+description = "Local-first, offline LeetCode-style practice platform"
+authors = ["local-leet contributors"]
+edition = "2021"
+rust-version = "1.77"
+license = "MIT"
+
+[lib]
+# The `_lib` suffix avoids a name collision with the binary on Windows
+# (tauri's default template does the same).
+name = "local_leet_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+# `ureq` is a synchronous HTTP client with no async runtime. Deliberate choice:
+# the AI call runs inside `spawn_blocking`, and pulling a second Tokio runtime
+# in there (reqwest::blocking) is a documented foot-gun.
+ureq = { version = "2", features = ["json"] }
+log = "0.4"
+env_logger = "0.11"
